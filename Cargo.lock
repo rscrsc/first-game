@@ -137,6 +137,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "amor_machina"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "bevy_asset_loader",
+ "bevy_kira_audio",
+ "embed-resource",
+ "image",
+ "rand",
+ "webbrowser",
+ "winit",
+]
+
+[[package]]
 name = "android-activity"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -579,20 +593,6 @@ checksum = "5328a3715e933ebbff07d0e99528dc423c4f7a53590ed1ac19a120348b028990"
 dependencies = [
  "bevy_macro_utils",
  "encase_derive_impl",
-]
-
-[[package]]
-name = "bevy_game"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "bevy_asset_loader",
- "bevy_kira_audio",
- "embed-resource",
- "image",
- "rand",
- "webbrowser",
- "winit",
 ]
 
 [[package]]
@@ -2395,8 +2395,8 @@ dependencies = [
 name = "mobile"
 version = "0.1.0"
 dependencies = [
+ "amor_machina",
  "bevy",
- "bevy_game",
  "cpal",
 ]
 
