@@ -10,6 +10,7 @@ pub struct InternalAudioPlugin;
 impl Plugin for InternalAudioPlugin {
     fn build(&self, app: &mut App) {
         app.add_plugins(AudioPlugin)
+            .add_systems(OnEnter(GameState::Menu), start_menu_audio)
             .add_systems(OnEnter(GameState::Playing), start_audio)
             .add_systems(
                 Update,
@@ -21,7 +22,18 @@ impl Plugin for InternalAudioPlugin {
 }
 
 #[derive(Resource)]
+struct MainMenuAudio(Handle<AudioInstance>);
+#[derive(Resource)]
 struct FlyingAudio(Handle<AudioInstance>);
+
+fn start_menu_audio(mut commands: Commands, audio_assets: Res<AudioAssets>, audio: Res<Audio>) {
+    let handle = audio
+        .play(audio_assets.main_menu.clone())
+        .looped()
+        .with_volume(5.0)
+        .handle();
+    commands.insert_resource(MainMenuAudio(handle));
+}
 
 fn start_audio(mut commands: Commands, audio_assets: Res<AudioAssets>, audio: Res<Audio>) {
     audio.pause();

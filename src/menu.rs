@@ -56,8 +56,8 @@ fn setup_menu(mut commands: Commands, textures: Res<TextureAssets>) {
                 .spawn((
                     ButtonBundle {
                         style: Style {
-                            width: Val::Px(140.0),
-                            height: Val::Px(50.0),
+                            //width: Val::Px(140.0),
+                            //height: Val::Px(50.0),
                             justify_content: JustifyContent::Center,
                             align_items: AlignItems::Center,
                             ..Default::default()
@@ -69,14 +69,22 @@ fn setup_menu(mut commands: Commands, textures: Res<TextureAssets>) {
                     ChangeState(GameState::Playing),
                 ))
                 .with_children(|parent| {
-                    parent.spawn(TextBundle::from_section(
-                        "Play",
-                        TextStyle {
-                            font_size: 40.0,
-                            color: Color::rgb(0.9, 0.9, 0.9),
+                    //parent.spawn(TextBundle::from_section(
+                    //    "Play",
+                    //    TextStyle {
+                    //        font_size: 40.0,
+                    //        color: Color::rgb(0.9, 0.9, 0.9),
+                    //        ..default()
+                    //    },
+                    //));
+                    parent.spawn(ImageBundle {
+                        image: textures.toolbox.clone().into(),
+                        style: Style {
+                            width: Val::Px(70.),
                             ..default()
                         },
-                    ));
+                        ..default()
+                    });
                 });
         });
     commands

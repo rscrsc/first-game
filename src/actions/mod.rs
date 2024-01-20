@@ -16,15 +16,22 @@ pub struct ActionsPlugin;
 impl Plugin for ActionsPlugin {
     fn build(&self, app: &mut App) {
         app.init_resource::<Actions>().add_systems(
-            Update,
-            set_movement_actions.run_if(in_state(GameState::Playing)),
+            Update, (
+                set_movement_actions,
+                set_system_actions,
+            ).run_if(in_state(GameState::Playing))
         );
     }
+}
+
+pub enum SystemAction {
+    BackToMenu,
 }
 
 #[derive(Default, Resource)]
 pub struct Actions {
     pub player_movement: Option<Vec2>,
+    pub system_action: Option<SystemAction>,    //TODO: make it a type of system action array such as stop, resume, back to menu etc.
 }
 
 pub fn set_movement_actions(
@@ -57,4 +64,17 @@ pub fn set_movement_actions(
     } else {
         actions.player_movement = None;
     }
+}
+
+pub fn set_system_actions(
+    mut actions: ResMut<Actions>,
+    keyboard_input: Res<Input<KeyCode>>,
+    _touch_input: Res<Touches>,
+) {
+    if GameControl::Escape.pressed(&keyboard_input) {
+        actions.system_action = Some(SystemAction::BackToMenu);
+    } else {
+        actions.system_action = None;
+    }
+    //TODO: setup touch screen BackToMenu action
 }
