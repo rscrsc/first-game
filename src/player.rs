@@ -52,7 +52,7 @@ fn move_player(
 }
 
 fn handle_system_actions(
-    actions: Res<Actions>,
+    mut actions: ResMut<Actions>,
     mut next_state: ResMut<NextState<GameState>>,
 ) {
     if actions.system_action.is_none() {
@@ -60,6 +60,7 @@ fn handle_system_actions(
     }
     match actions.system_action {
         Some(SystemAction::BackToMenu) => {
+            actions.system_action = None;
             next_state.set(GameState::Menu);
         }
         _ => {}
